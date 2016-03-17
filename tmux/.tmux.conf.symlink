@@ -1,0 +1,97 @@
+# Take from https://github.com/nicknisi/vim-workshop/blob/master/tmux.conf
+# Idea is to make tmux navigation similar to vim. I use a colmak layout and I am lefthanded. That's
+# reason why I use rstd for vim navigation instead of hjkl. 
+
+# tmux display things in 256 colors
+set -g default-terminal "screen-256color"
+set -g status-utf8 on
+
+# automatically renumber tmux windows
+set -g renumber-windows on
+
+# unbind default prefix and set it to Ctrl+b
+unbind C-b
+set -g prefix C-b
+bind C-b send-prefix
+
+# for nested tmux sessions
+bind-key b send-prefix
+
+# Activity Monitoring
+setw -g monitor-activity off
+set -g visual-activity off
+
+# Rather than constraining window size to the maximum size of any client
+# connected to the *session*, constrain window size to the maximum size of any
+# client connected to *that window*. Much more reasonable.
+setw -g aggressive-resize on
+
+# make delay shorter
+set -sg escape-time 0
+
+# make window/pane index start with 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+######################
+#### Key Bindings ####
+######################
+
+# reload config file
+bind l source-file ~/.tmux.conf \; display "Config Reloaded!"
+
+# split window and fix path for tmux 1.9
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+
+# kill window/pane using q
+bind q killp
+
+# synchronize all panes in a window
+bind y setw synchronize-panes
+
+# pane movement shortcuts
+bind d select-pane -L
+bind t select-pane -D
+bind s select-pane -U
+bind r select-pane -R
+bind C-d select-pane -L
+bind C-t select-pane -D
+bind C-s select-pane -U
+bind C-r select-pane -R
+
+bind -r C-r select-window -t :-
+bind -r C-d select-window -t :+
+
+# Resize pane shortcuts
+bind -r D resize-pane -L 10
+bind -r T resize-pane -D 10
+bind -r S resize-pane -U 10
+bind -r R resize-pane -R 10
+
+# enable mouse support for switching panes/windows
+# NOTE: This breaks selecting/copying text on OSX
+# To select text as expected, hold Option to disable it (iTerm2)
+setw -g mode-mouse on
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+set -g mouse-select-window on
+
+# set vi mode for copy mode
+setw -g mode-keys vi
+
+# more settings to make copy-mode more vim-like
+unbind [
+bind Escape copy-mode
+unbind p
+bind p paste-buffer
+bind p paste-buffer
+bind -t vi-copy 'v' begin-selection
+bind -t vi-copy 'y' copy-selection
+bind -t vi-copy 'd' cursor-right
+bind -t vi-copy 't' cursor-down
+bind -t vi-copy 's' cursor-up
+bind -t vi-copy 'r' cursor-left
+
+source ~/.dotfiles/tmux/theme.sh
+source ~/.dotfiles/tmux/plugins.sh

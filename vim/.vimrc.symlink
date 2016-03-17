@@ -1,0 +1,155 @@
+source ~/.dotfiles/vim/plugin.vim
+source ~/.dotfiles/vim/leader.vim
+
+syntax on
+filetype plugin indent on
+set background=dark
+
+set nocompatible    " not care about vi compat
+set t_Co=256        " force 256 colors
+set re=1            " use new regexp engine
+colorscheme distinguished
+
+set nocompatible
+set modelines=0
+set showmode
+set showcmd
+set wrap
+set textwidth=120
+set formatoptions=qrn1
+set relativenumber
+set number
+" offset wehen scorlling
+set scrolloff=20
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+set clipboard=unnamed " makes unnamed reg sames "*, 
+noremap Q <NOP> " disable ex mode
+
+"set colorcolumn=100
+" set list = show whitespaces and listchars defines how to show whitespaces
+set list
+set listchars=tab:→\ ,eol:¬,space:.
+" taken from http://stackoverflow.com/questions/24232354/vim-set-color-for-listchars-tabs-and-spaces
+" Color taken from http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+hi Whitespace ctermfg=235
+match Whitespace /\s/
+
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+" use spaces to indent and not tabs
+"set expandtab
+set autoindent
+set hidden
+" completion for command-line menu.
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set ttyfast
+set history=1000 
+" -------------------------------------
+" -- configure undo stuff
+" ------------------------------------
+set undofile
+set undodir=$HOME/.vim/undo      " how many undos
+set undoreload=50000        " number of lines to save for undo
+
+
+" movement for colmak layout and left hand navigation.
+" -------------------------------------
+" -- configure motion for my colmak layout, as a left hand person.
+" ------------------------------------
+noremap r h
+noremap s gk
+noremap t gj
+noremap d l
+nnoremap <silent> ^ g^
+nnoremap <silent> $ g$
+
+noremap h d
+noremap j s
+noremap k t
+noremap l r
+" neio kjhl
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+
+" -------------------------------------
+" -- configure how to work with multiple windows
+" ------------------------------------
+map <C-w>\| :vsp<CR>
+map <C-w>- :sp<CR>
+noremap <C-w>d <C-w>l
+noremap <C-w>t <C-w>j
+noremap <C-w>s <C-w>k
+noremap <C-w>r <C-w>h
+noremap <C-w><C-d> <C-w>l
+noremap <C-w><C-t> <C-w>j
+noremap <C-w><C-s> <C-w>k
+noremap <C-w><C-r> <C-w>h
+
+" -------------------------------------
+" -- configure search
+" ------------------------------------
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+
+" -------------------------------------
+" -- configure nerd tree stuff
+" ------------------------------------
+" toggle nerd tree with ctrl-n
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+" -------------------------------------
+" -- spell checking
+" ------------------------------------
+" spell checking configuration. Type :h spell to get help for spell checking. 
+" Take from http://stackoverflow.com/questions/6008921/how-do-i-change-the-highlight-style-in-vim-spellcheck
+setlocal spell spelllang=de_de
+map <F5> :setlocal spell! spelllang=en_us<CR>
+map <F4> :setlocal spell! spelllang=de_de<CR>
+"setlocal spell spelllang=en
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+" -------------------------------------
+" -- ctrlp configuration - use ag as search command
+" ------------------------------------
+"Take from http://stackoverflow.com/questions/2372307/opening-files-in-vim-using-fuzzy-search
+if executable('ag')
+  " Use Ag over Grep
+  let grepprg='ag\ --nogroup\ --nocolor'
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+" -------------------------------------
+" -- configuration of indet plugin.
+" ------------------------------------
+if exists(":IndentLinesToggle")
+  "vertical line indentation
+  let g:indentLine_color_term = 239
+  let g:indentLine_color_gui = '#09AA08'
+  let g:indentLine_char = '│'
+endif
+
+
+" -------------------------------------
+" -- configuration of the autosave plugin
+" ------------------------------------
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
+" let g:auto_save_postsave_hook = 'TagsGenerate'  " this will run :TagsGenerate after each save
+

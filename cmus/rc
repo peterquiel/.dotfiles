@@ -1,0 +1,5 @@
+# file for cmus configuration, see https://cmus.github.io/#home for more informiation. 
+# for commands see man cmus
+
+bind -f common t win-down
+bind -f common s win-up
