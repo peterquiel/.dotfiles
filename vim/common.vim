@@ -1,9 +1,14 @@
-
-source ~/.dotfiles/vim/leader.vim
-
 syntax on
 filetype plugin indent on
 set re=1            " use new regexp engine
+
+set incsearch
+set ignorecase
+set smartcase
+set smarttab
+set hlsearch
+" Use <C-L> to clear the highlighting of :set hlsearch.
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
 set nocompatible    " not care about vi compat
 set modelines=0
@@ -37,11 +42,13 @@ set wildmode=list:longest
 " -- configure motion for my colmak layout, as a left hand person.
 " ------------------------------------
 noremap r h
+noremap R b
 noremap s gk
 noremap S 10gk
 noremap t gj
 noremap T 10gj
 noremap d l
+noremap D w
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
@@ -59,14 +66,16 @@ noremap <right> <nop>
 map <C-w>\| :vsp<CR>
 map <C-w>- :sp<CR>
 
-" -------------------------------------
-" -- configure search
-" ------------------------------------
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
-vnoremap // y/<C-R>"<CR>
-"nnoremap <C-e> <C-R>
+" map undo to ctrl + u
+nnoremap <C-u>  <C-r>
+
+let java_highlight_functions="style"
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+if has('path_extra')
+	  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+

@@ -22,24 +22,24 @@ alias l='ls -CF'
 alias ff='ag -il . -g $1 '
 alias fin='ag -i $1'
 #alias finjar='find "$1" -name "*.jar" -exec sh -c \'unzip -l {}|grep -H --label {} \'$2\'\' \;'
-alias iedit='/home/pedda/local/idea/bin/idea.sh $1'
-alias idiff='/home/pedda/local/idea/bin/idea.sh diff $1 $2'
-alias inspect='/home/pedda/local/idea/bin/inspect.sh -v1 $1'
+alias iedit='~/local/idea/bin/idea.sh $1'
+alias idiff='~/local/idea/bin/idea.sh diff $1 $2'
+alias inspect='~/local/idea/bin/inspect.sh -v1 $1'
 
 CXX=/usr/bin/g++
 CC=/usr/bin/gcc
 
-ARDUINO_SDK_PATH=/home/pedda/local/arduino
+ARDUINO_SDK_PATH=~/local/arduino
 AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
 
-GRAILS_HOME=/home/pedda/hack/grails
+GRAILS_HOME=~/hack/grails
 JAVA_HOME=/opt/Oracle_Java/jdk
-GWT_HOME=/home/pedda/hack/gwt
+GWT_HOME=~/hack/gwt
 MAVEN_HOME=/usr/share/maven
 M2_HOME=/usr/share/maven
-ANDROID_SDK_HOME=/home/pedda/local/android-sdk-linux
-GRADLE_HOME=/home/pedda/local/gradle
-PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin"
+ANDROID_SDK_HOME=~/local/android-sdk-linux
+GRADLE_HOME=~/local/gradle
+PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin"
 
 export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM
 

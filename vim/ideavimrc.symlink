@@ -1,0 +1,14 @@
+source ~/.dotfiles/vim/common.vim
+
+nnoremap <silent> <C-r> select-pane -R
+nnoremap <silent> <C-t> select-pane -D
+nnoremap <silent> <C-s> select-pane -U
+lnoremap <silent> <C-d> select-pane -L
+
+
+nnoremap <leader>ev :e ~/.ideavimrc<cr>
+nnoremap <leader>rv :source ~/.ideavimrc<cr> 
+
+nnoremap <C-w>q :action VimWindowClose<cr>
+nnoremap <leader>gc :action GotoClass<cr>
+nnoremap <leader>of :action OpenFile<cr>
