@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 # set PATH so it includes user's private bin if it exists
 
-TERM=xterm-256color
 # deactivate xon/xoff inorder to allof ctrl-s and ctrl-q commandt to vim and tmux
 stty -ixon
 
@@ -28,6 +27,7 @@ M2_HOME=/usr/share/maven
 ANDROID_SDK_HOME=~/local/android-sdk
 ANDROID_SDK=~/local/android-sdk
 GRADLE_HOME=~/local/gradle
+
 PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin"
 
 export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK
