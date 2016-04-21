@@ -83,6 +83,8 @@ map <C-w>S :resize -4<CR>
 map <C-w>D :vertical resize +10<CR>
 map <C-w>R :vertical resize -10<CR>
 
+" always want to jump to the exact place instead of the line
+nnoremap ' `
 
 " make dot operator available in visulamode
 vnoremap . :normal .<CR>

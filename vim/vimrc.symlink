@@ -54,7 +54,3 @@ hi SpellBad cterm=underline
 
 source ~/.dotfiles/vim/plugin.vim
 
-
-set tags+=/home/pedda/.vim/tags
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-let g:SuperTabDefaultCompletionType = 'context'

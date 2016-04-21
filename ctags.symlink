@@ -1,4 +1,5 @@
 --extra=+q
 --fields=+a
 --exclude=build
+--exclude=.git
 -R

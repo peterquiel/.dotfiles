@@ -17,6 +17,8 @@ Plug 'honza/vim-snippets'
 Plug 'sudar/vim-arduino-snippets'
 Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe' 
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'shawncplus/phpcomplete.vim'
 
 Plug 'vim-scripts/vim-auto-save' 
 Plug 'jelera/vim-javascript-syntax' 
@@ -31,7 +33,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 
 "Plug 'hsanson/vim-android'
-Plug 'artur-shaik/vim-javacomplete2'
 
 Plug 'majutsushi/tagbar'
 "Plug 'xolox/vim-misc'
@@ -92,6 +93,7 @@ let g:syntastic_shell="/bin/bash"
 let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,deprecation,dep-ann,divzero,empty,fallthrough,finally,options,overloads,overrides,path,processing,rawtypes,static,try,unchecked,varargs}'
 "let g:syntastic_java_checkers=['javac']
 "let g:syntastic_java_javac_config_file_enabled = 1
+let g:syntastic_php_checkers = ['php']
 
 " -------------------------------------
 " -- configuration of the ulti snippet
@@ -114,14 +116,16 @@ let g:UltiSnipsEditSplit="vertical"
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType = 'context'
 
 " -------------------------------------
 " -- configuration of the ctrlp plugin
 " ------------------------------------
 noremap <C-j> :CtrlPTag<cr>
+noremap <C-y> :CtrlPMixed<cr>
 let g:ctrlp_map = '<c-l>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlp/cache'
 let g:ctrlp_max_files = 0
@@ -131,50 +135,50 @@ let g:ctrlp_open_multiple_files = 'v'
 map <F6>  :CtrlPClearCache<CR> 
 "Take from http://stackoverflow.com/questions/2372307/opening-files-in-vim-using-fuzzy-search
 if executable('ag')
-	" Use Ag over Grep
-	let grepprg='ag\ --nogroup\ --nocolor'
+  " Use Ag over Grep
+  let grepprg='ag\ --nogroup\ --nocolor'
 
-	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:ctrlp_use_caching = 0
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -S %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
 endif
 "remove mepping in order to toggle fname in ctrlp
 let g:ctrlp_prompt_mappings = {
-			\ 'PrtBS()':              ['<bs>', '<c-]>'],
-			\ 'PrtDelete()':          ['<del>'],
-			\ 'PrtDeleteWord()':      ['<c-w>'],
-			\ 'PrtClear()':           ['<c-u>'],
-			\ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
-			\ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
-			\ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-			\ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-			\ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-			\ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-			\ 'PrtHistory(-1)':       ['<c-n>'],
-			\ 'PrtHistory(1)':        ['<c-p>'],
-			\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-			\ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-			\ 'AcceptSelection("t")': ['<c-t>'],
-			\ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-			\ 'ToggleFocus()':        ['<s-tab>'],
-			\ 'ToggleRegex()':        ['<c-k>'],
-			\ 'ToggleByFname()':      ['<c-h>'],
-			\ 'ToggleType(1)':        ['<c-l>', '<c-up>'],
-			\ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-			\ 'PrtExpandDir()':       ['<tab>'],
-			\ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-			\ 'PrtInsert()':          ['<c-\>'],
-			\ 'PrtCurStart()':        ['<c-a>'],
-			\ 'PrtCurEnd()':          ['<c-e>'],
-			\ 'PrtCurLeft()':         ['<c-r>', '<left>', '<c-^>'],
-			\ 'PrtCurRight()':        ['<c-d>', '<right>'],
-			\ 'PrtClearCache()':      ['<F5>'],
-			\ 'PrtDeleteEnt()':       ['<F7>'],
-			\ 'CreateNewFile()':      ['<c-y>'],
-			\ 'MarkToOpen()':         ['<c-z>'],
-			\ 'OpenMulti()':          ['<c-o>'],
-			\ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-			\ }
+      \ 'PrtBS()':              ['<bs>', '<c-]>'],
+      \ 'PrtDelete()':          ['<del>'],
+      \ 'PrtDeleteWord()':      ['<c-w>'],
+      \ 'PrtClear()':           ['<c-u>'],
+      \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
+      \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
+      \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+      \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+      \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+      \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+      \ 'PrtHistory(-1)':       ['<c-n>'],
+      \ 'PrtHistory(1)':        ['<c-p>'],
+      \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+      \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+      \ 'AcceptSelection("t")': ['<c-t>'],
+      \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+      \ 'ToggleFocus()':        ['<s-tab>'],
+      \ 'ToggleRegex()':        ['<c-k>'],
+      \ 'ToggleByFname()':      ['<c-h>'],
+      \ 'ToggleType(1)':        ['<c-l>', '<c-up>'],
+      \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+      \ 'PrtExpandDir()':       ['<tab>'],
+      \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+      \ 'PrtInsert()':          ['<c-\>'],
+      \ 'PrtCurStart()':        ['<c-a>'],
+      \ 'PrtCurEnd()':          ['<c-e>'],
+      \ 'PrtCurLeft()':         ['<c-r>', '<left>', '<c-^>'],
+      \ 'PrtCurRight()':        ['<c-d>', '<right>'],
+      \ 'PrtClearCache()':      ['<F5>'],
+      \ 'PrtDeleteEnt()':       ['<F7>'],
+      \ 'CreateNewFile()':      ['<c-y>'],
+      \ 'MarkToOpen()':         ['<c-z>'],
+      \ 'OpenMulti()':          ['<c-o>'],
+      \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+      \ }
 
 " configuration of the vim android/gradle plugin
 let g:gradle_path =$GRADLE_HOME 
@@ -188,6 +192,10 @@ nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_BaseDir = '~/.vim/.javacomplete_cache'
 let g:JavaComplete_ImportOrder = ['java.', 'javax.', 'com.', 'org.', 'net.']
+
+" configuring the omnifunc completion
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
 
 " configuring tagbar plugin
 " type :help tagbar for documentation
@@ -212,5 +220,4 @@ let g:easytags_python_enabled=1
 au VimEnter * nunmap ds
 
 " configure vim viki plugin
-
 let g:vimwiki_list = [{'path': '~/knowledgebase/', 'path_html': '~/knowledgebase/html','auto_export': '1',  'ext': '.wiki'}]

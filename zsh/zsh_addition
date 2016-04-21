@@ -7,8 +7,20 @@ stty -ixon
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias ff='ag -ilu --hidden . -g $1 '
-alias fin='ag -iua --hidden $1'
+alias fif='ag -Sua --hidden  --ignore .git ' # find in file, searches hidden but not in git dir
+alias fij='fif -G .java' # find in java file, searches for content in java files only
+alias fip='fif -G .php' # find in php files, searches for content in php files only
+alias fijs='fif -G .js' # searches in javascript files, searche for content in javascript files only
+alias ff='fif -l . -g' # find file, searche for the patten in file path and print the files names only, content is not searched
+alias fjf='fij -l . -g' # find java file, searches for a java file in the file path for a pattern
+alias fpf='fip -l . -g' # find php file, searches for a php file in the file path for a pattern
+alias swd='ddg' # search the web with duck duck go for the search given search string, opens the result in the default browser
+alias swg='google' # searche the web with goole for the given search string, opens the result in the defualt browser.
+alias acs='apt-cache search' 
+alias agi='sudo apt-get install'
+alias rvi='vim --servername VIM --remote ' # opens the given file in the remote running vim server, if no server is up, one will be stated.
+alias svi='vim --servername VIM'  # opens vim in sever mode with the default server name VIM
+alias vm='vman' 
 
 #alias finjar='find "$1" -name "*.jar" -exec sh -c \'unzip -l {}|grep -H --label {} \'$2\'\' \;'
 # open man pages using vim with the vman command and setting the filetype to manpages.
@@ -27,8 +39,9 @@ M2_HOME=/usr/share/maven
 ANDROID_SDK_HOME=~/local/android-sdk
 ANDROID_SDK=~/local/android-sdk
 GRADLE_HOME=~/local/gradle
+SCALA_HOME=~/local/scala
 
-PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin"
+PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin"
 
 export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK
 
