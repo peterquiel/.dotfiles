@@ -7,9 +7,11 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree' 
-"Plug 'Xuyuanp/nerdtree-git-plugin' 
-
+Plug 'Xuyuanp/nerdtree-git-plugin' 
+Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim' 
+
+Plug 'rking/ag.vim'
 
 " doc can be found here: :help UltiSnips
 Plug 'SirVer/ultisnips' 
@@ -19,7 +21,8 @@ Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe' 
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'shawncplus/phpcomplete.vim'
-
+Plug 'vim-scripts/dbext.vim'
+Plug 'Chiel92/vim-autoformat'
 Plug 'vim-scripts/vim-auto-save' 
 Plug 'jelera/vim-javascript-syntax' 
 Plug 'jez/vim-superman' 
@@ -28,18 +31,24 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Lokaltog/vim-powerline' 
 Plug 'altercation/vim-colors-solarized' 
 Plug 'scrooloose/syntastic' 
+Plug 'scrooloose/nerdcommenter'
+
 Plug 'tpope/vim-surround' 
 Plug 'tpope/vim-fugitive' 
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
 
 "Plug 'hsanson/vim-android'
 
-Plug 'majutsushi/tagbar'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-easytags'
-Plug 'maksimr/vim-translator'
+"Plug 'maksimr/vim-translator'
 Plug 'vimwiki/vimwiki'
-"Plug 'gerw/vim-latex-suite'
+Plug 'dkprice/vim-easygrep'
+Plug 'aperezdc/vim-template' 
+Plug 'mattn/emmet-vim'
+Plug 'othree/xml.vim'
 call plug#end()
 
 "colorscheme distinguished
@@ -56,7 +65,9 @@ let g:NERDTreeMapOpenInTab='\t'
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeMapActiveNode='d'
 let g:NERDTreeMapOpenRecursively='D'
-
+let g:NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
+let g:NERDTreeChDirMode=2
+let g:NERDTreeShowBookmarks=1
 " -------------------------------------
 " -- configuration of indet plugin.
 " ------------------------------------
@@ -94,12 +105,12 @@ let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,depr
 "let g:syntastic_java_checkers=['javac']
 "let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_php_checkers = ['php']
-
+let g:syntastic_disabled_filetypes=['html']
 " -------------------------------------
 " -- configuration of the ulti snippet
 " ------------------------------------
 noremap <C-tab> <nop>
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion = 3
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " better key bindings for UltiSnipsExpandTrigger
 " http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
@@ -123,7 +134,6 @@ let g:SuperTabDefaultCompletionType = 'context'
 " -- configuration of the ctrlp plugin
 " ------------------------------------
 noremap <C-j> :CtrlPTag<cr>
-noremap <C-y> :CtrlPMixed<cr>
 let g:ctrlp_map = '<c-l>'
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
@@ -132,16 +142,15 @@ let g:ctrlp_max_files = 0
 " t new tab, h horizontal split, v vertical split and r current window.
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'v'
-map <F6>  :CtrlPClearCache<CR> 
+map <F5>  :ClearAllCtrlPCaches<CR> 
 "Take from http://stackoverflow.com/questions/2372307/opening-files-in-vim-using-fuzzy-search
 if executable('ag')
-  " Use Ag over Grep
-  let grepprg='ag\ --nogroup\ --nocolor'
-
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -S %s -l --nocolor -g ""'
+  " -S: SmartCase -f follow symlings -l print files matches and not matching line, 
+  let g:ctrlp_user_command = 'ag -S %s -l --hidden --ignore .git -f --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
+
 "remove mepping in order to toggle fname in ctrlp
 let g:ctrlp_prompt_mappings = {
       \ 'PrtBS()':              ['<bs>', '<c-]>'],
@@ -187,7 +196,6 @@ let g:android_adb_tool = "$ANDROID_SDK_HOME/platform-tools/adb"
 let g:android_quickfix_show = 1
 
 " configuration of the javacomplete2 plugin
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_BaseDir = '~/.vim/.javacomplete_cache'
@@ -196,10 +204,15 @@ let g:JavaComplete_ImportOrder = ['java.', 'javax.', 'com.', 'org.', 'net.']
 " configuring the omnifunc completion
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
+autocmd Filetype css  setlocal omnifunc=csscomplete#CompleteCSS noci
+autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType c setlocal omnifunc=ccomplete#CompleteCpp
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " configuring tagbar plugin
 " type :help tagbar for documentation
-nmap <LEADER>, :TagbarToggle<CR>
 let g:tagbar_autoclose=1
 let g:tagbar_autofocus=1
 let g:tagbar_map_togglesort='j'
@@ -216,8 +229,63 @@ let g:easytags_include_members = 1
 let g:easytags_python_enabled=1
 
 " configuration of surround plugin
-"let g:surround_no_mappings= 1
-au VimEnter * nunmap ds
+" mapping s to j because of my colemak left hand navigation with rstd. 
+let g:surround_no_mappings= 1
+nmap hj  <Plug>Dsurround
+nmap cj  <Plug>Csurround
+nmap cJ  <Plug>CSurround
+nmap yj  <Plug>Ysurround
+nmap yJ  <Plug>YSurround
+nmap yjj <Plug>Yssurround
+nmap yJj <Plug>YSsurround
+nmap yJJ <Plug>YSsurround
+xmap J   <Plug>VSurround
+xmap gJ  <Plug>VgSurround
+imap <C-J> <Plug>Isurround
+imap <C-G>j <Plug>Isurround
+imap <C-G>J <Plug>ISurround
 
 " configure vim viki plugin
-let g:vimwiki_list = [{'path': '~/knowledgebase/', 'path_html': '~/knowledgebase/html','auto_export': '1',  'ext': '.wiki'}]
+let g:vimwiki_list = [{'path': '~/knowledgebase/', 'path_html': '~/knowledgebase/html','auto_export': '0',  'ext': '.wiki'}]
+
+" configure the ag search plugin
+let g:ag_apply_qmappings=0
+let g:ag_qhandler="copen 20"
+let g:ag_highlight=1
+let g:ag_apply_lmappings=0
+
+" configure autoformat plugin
+let g:autoformat_verbosemode=1
+
+" remove ReapeatUndo mapping from the repeat plugin because it destroys my C-rstd Windownaigation
+nnoremap <C-k> <Plug>(RepeatRedo)
+
+" configuring of vim-template plugin
+let g:templates_directory='~/.dotfiles/vim/vim-templates'
+let g:templates_no_autocmd=1
+let g:email = "peter.quiel@gmail.com"
+let g:user = "Peter Quiel"                                         
+let g:license = "Apache 2.0"
+let g:templates_global_name_prefix='template_'
+" 
+" The `g:templates_user_variables` variable allows to expand user-defined
+" variables in templates. It should be set to an array, where each item is
+" a two-element array: the first element is the name of the user-defined
+" variable, and the second element the name of a function. For example,
+" the following can be added to the user |vimrc|:
+" >
+"   let g:templates_user_variables = [
+"       \   ['FULLPATH', 'GetFullPath'],
+"           \ ]
+"
+"             function! GetFullPath()
+"                 return expand('%:p')
+"                   endfunction
+"                   >
+"                   This way, each occurrence of `%FULLPATH%` in a template will be replaced
+"                   with the absolute path of the current file.
+let g:templates_user_variables=[]
+
+" configuration of easy grep
+let g:EasyGrepCommand=1
+

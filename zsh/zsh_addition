@@ -1,30 +1,47 @@
 #!/bin/zsh
 # set PATH so it includes user's private bin if it exists
 
+zstyle ':completion:*' completer _complete _ignored _expand_alias
+autoload -Uz compinit
+compinit
+
+
 # deactivate xon/xoff inorder to allof ctrl-s and ctrl-q commandt to vim and tmux
 stty -ixon
+
+alias python=python3
 
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias fif='ag -Sua --hidden  --ignore .git ' # find in file, searches hidden but not in git dir
-alias fij='fif -G .java' # find in java file, searches for content in java files only
-alias fip='fif -G .php' # find in php files, searches for content in php files only
-alias fijs='fif -G .js' # searches in javascript files, searche for content in javascript files only
-alias ff='fif -l . -g' # find file, searche for the patten in file path and print the files names only, content is not searched
-alias fjf='fij -l . -g' # find java file, searches for a java file in the file path for a pattern
-alias fpf='fip -l . -g' # find php file, searches for a php file in the file path for a pattern
+
+alias fif='ag -Su -f --hidden --ignore .git ' # find in file, searches hidden but not in git dir and follow symlinks
+alias fij='fif --java ' # find in java file, searches for content in java files only
+alias fip='fif --php ' # find in php files, searches for content in php files only
+alias fijs='fif --js ' # searches in javascript files, search for content in javascript files only
+alias ff='fif -l . -g ' # find file, search for the pattern in file path and print the files names only, content is not searched
 alias swd='ddg' # search the web with duck duck go for the search given search string, opens the result in the default browser
-alias swg='google' # searche the web with goole for the given search string, opens the result in the defualt browser.
+alias swg='google' # search the web with google for the given search string, opens the result in the default browser.
+
 alias acs='apt-cache search' 
 alias agi='sudo apt-get install'
+
 alias rvi='vim --servername VIM --remote ' # opens the given file in the remote running vim server, if no server is up, one will be stated.
 alias svi='vim --servername VIM'  # opens vim in sever mode with the default server name VIM
-alias vm='vman' 
+#uses the system and x-window clipboard to create a diff view between the content of the two clipboards
+alias clipdiff='vimdiff <(xclip -o) <(xclip -o -selection clipbord)'
+
+alias scan-duplex-low='hp-scan --duplex -spdf -mgray -r150 --adf -f '
+alias scan-duplex-high='hp-scan --duplex -spdf -mcolor -r300 --adf -f '
+
+alias -g ...='../..'
+alias -g ....='../../..'
 
 #alias finjar='find "$1" -name "*.jar" -exec sh -c \'unzip -l {}|grep -H --label {} \'$2\'\' \;'
 # open man pages using vim with the vman command and setting the filetype to manpages.
-vman() { vim -c 'setf man' <(man $1); }
+vm() { vim -c 'setf man' <(man $1); }
+# vm has the same auto completion as man
+compdef vm=man
 
 CXX=/usr/bin/g++
 CC=/usr/bin/gcc
@@ -41,9 +58,10 @@ ANDROID_SDK=~/local/android-sdk
 GRADLE_HOME=~/local/gradle
 SCALA_HOME=~/local/scala
 
-PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin"
+PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin"
 
 export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK
 
 # see https://youtrack.jetbrains.com/issue/IDEA-78860 for more info
 export IBUS_ENABLE_SYNC_MODE=1
+

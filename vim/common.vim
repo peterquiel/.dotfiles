@@ -82,6 +82,8 @@ map <C-w>T :resize +4<CR>
 map <C-w>S :resize -4<CR>
 map <C-w>D :vertical resize +10<CR>
 map <C-w>R :vertical resize -10<CR>
+map <C-f>  :tabp<cr>
+map <C-p>  :tabn<cr>
 
 " always want to jump to the exact place instead of the line
 nnoremap ' `
