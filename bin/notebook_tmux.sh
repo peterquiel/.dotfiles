@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # creates a default tmux session with a wiki in the first window and a vi|cmd setup in the second window.
 
-dir="$HOME/local/lampstack-5.6.20-0/apache2/htdocs"
+dir="$HOME"
 session="default_tmux"
 
 tmux start-server

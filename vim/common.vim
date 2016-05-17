@@ -24,7 +24,7 @@ set scrolloff=10
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-set clipboard=unnamed " makes unnamed reg sames "*, 
+set clipboard=unnamed,unnamedplus " makes unnamed reg sames "*, 
 
 " use spaces to indent and not tabs
 set expandtab
@@ -61,10 +61,10 @@ noremap r h
 noremap d l
 noremap s gk
 noremap t gj
-"navigation paragraph wise when using capital letters
-noremap S {
-noremap T }
-"navigate worde wise if using capital letters
+"navigation from function to function, when using curly braces langs, behaves in Python the same way due to python mode.
+noremap S [[
+noremap T ]]
+"navigate word wise if using capital letters
 noremap R b
 noremap D w
 nnoremap <silent> ^ g^
@@ -74,6 +74,13 @@ noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
+
+nnoremap <up> mz :m .-2<cr>`z ==
+nnoremap <down> mz :m .+1<cr>`z ==
+nnoremap <right> mz :> <cr>`z
+nnoremap <left> mz :< <cr>`z
+vnoremap <up> :m '<-2<cr>gv=gv
+vnoremap <down> :m '>+1<cr>gv=gv
 
 " spilt vertical with pipe and horizontaly with minus
 map <C-w>\| :vsp<CR>
@@ -99,8 +106,25 @@ let java_highlight_functions="style"
 if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
 endif
+
 " the ; after tags makes vim look for the file upwards
 set tags=./.tags;,~/.vim/.tags
+" always ask if there are more tags matching.
 noremap <C-]> g<C-]>
 
 au BufRead *.gradle set syntax=groovy
+
+" Search for the select text when using # or * search in visual mode.
+" Taken from https://github.com/godlygeek/vim-files/blob/master/plugin/vsearch.vim
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  " Use this line instead of the above to match matches spanning across lines
+  "let @/ = '\V' . substitute(escape(@@, '\'), '\_s\+', '\\_s\\+', 'g')
+  call histadd('/', substitute(@/, '[?/]', '\="\\%d".char2nr(submatch(0))', 'g'))
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>/<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>?<CR>

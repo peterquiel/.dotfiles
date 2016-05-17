@@ -19,13 +19,12 @@ Plug 'honza/vim-snippets'
 Plug 'sudar/vim-arduino-snippets'
 Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe' 
-Plug 'artur-shaik/vim-javacomplete2'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'vim-scripts/dbext.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-scripts/vim-auto-save' 
-Plug 'jelera/vim-javascript-syntax' 
 Plug 'jez/vim-superman' 
+
 " split window navigatigation between tmux and vim
 Plug 'christoomey/vim-tmux-navigator' 
 Plug 'Lokaltog/vim-powerline' 
@@ -39,8 +38,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 
-"Plug 'hsanson/vim-android'
-
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-easytags'
 "Plug 'maksimr/vim-translator'
@@ -48,8 +45,24 @@ Plug 'vimwiki/vimwiki'
 Plug 'dkprice/vim-easygrep'
 Plug 'aperezdc/vim-template' 
 Plug 'mattn/emmet-vim'
-Plug 'othree/xml.vim'
+
+"Java development
+Plug 'artur-shaik/vim-javacomplete2'
+
+" javascript plugins, these plugins are recommended by the vim-angular plugin.
+Plug 'burnettk/vim-angular'
+Plug 'jelera/vim-javascript-syntax' 
+" Syntax Complete Plugin 
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'matthewsimo/angular-vim-snippets'
+Plug 'claco/jasmine.vim'
+
+" Arduino Development Plugins
+Plug '4Evergreen4/vim-hardy'
+Plug 'sudar/vim-arduino-syntax'
 call plug#end()
+
 
 "colorscheme distinguished
 colorscheme solarized
@@ -99,13 +112,18 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_shell="/bin/bash"
-"only -Xlint will enable all warnings, but I don't want to see the missing serialUID waring
+"only -Xlint will enable all warnings, but I don't want to see the missing serialUID warnings
 " removed: serial
 let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,deprecation,dep-ann,divzero,empty,fallthrough,finally,options,overloads,overrides,path,processing,rawtypes,static,try,unchecked,varargs}'
 "let g:syntastic_java_checkers=['javac']
 "let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_php_checkers = ['php']
-let g:syntastic_disabled_filetypes=['html']
+"let g:syntastic_disabled_filetypes=['html']
+let g:syntastic_javascript_checkers = ['jshint']
+" configure syntastic to recognize my own directives
+let g:syntastic_html_tidy_blocklevel_tags = ['']
+let g:syntastic_html_tidy_ignore_errors = ['']
+
 " -------------------------------------
 " -- configuration of the ulti snippet
 " ------------------------------------
@@ -256,7 +274,9 @@ let g:ag_apply_lmappings=0
 
 " configure autoformat plugin
 let g:autoformat_verbosemode=1
+" js beautifier, read https://www.npmjs.com/package/js-beautify
 
+" configure repeat plugin
 " remove ReapeatUndo mapping from the repeat plugin because it destroys my C-rstd Windownaigation
 nnoremap <C-k> <Plug>(RepeatRedo)
 
@@ -265,9 +285,8 @@ let g:templates_directory='~/.dotfiles/vim/vim-templates'
 let g:templates_no_autocmd=1
 let g:email = "peter.quiel@gmail.com"
 let g:user = "Peter Quiel"                                         
-let g:license = "Apache 2.0"
+"let g:license = "Apache 2.0"
 let g:templates_global_name_prefix='template_'
-" 
 " The `g:templates_user_variables` variable allows to expand user-defined
 " variables in templates. It should be set to an array, where each item is
 " a two-element array: the first element is the name of the user-defined
@@ -289,3 +308,36 @@ let g:templates_user_variables=[]
 " configuration of easy grep
 let g:EasyGrepCommand=1
 
+" configure vim-javascript plugin
+let g:javascript_enable_domhtmlcss = 1
+let g:javascript_ignore_javaScriptdoc = 1
+
+" configure javascript syntax plugin
+" Configure used javascript libraries
+" Possible values:
+" jQuery: jquery
+" underscore.js: underscore
+" Lo-Dash: underscore
+" Backbone.js: backbone
+" prelude.ls: prelude
+" AngularJS: angularjs
+" AngularUI: angularui
+" AngularUI Router: angularuirouter
+" React: react
+" Flux: flux
+" RequireJS: requirejs
+" Sugar.js: sugar
+" Jasmine: jasmine
+" Chai: chai
+" Handlebars: handlebars
+" Ramda: ramda
+let g:used_javascript_libs = 'angularjs,angularui,angularuirouter,jasmine,chai'
+
+" configuration of the vim-angular plugin
+let g:angular_find_ignore = ['build/', 'dist/']
+let g:angular_filename_convention = 'camelcased' " alternative is 'titlecased'
+let g:angular_jasmine_version =2 
+
+" configure arduino sdk location
+let g:hardy_arduino_path='/home/pedda/local/arduino/arduino'
+let g:hardy_arduino_options='--board arduino:avr:micro --port /dev/ttyACM3'
