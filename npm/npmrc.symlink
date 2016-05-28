@@ -1,1 +1,2 @@
-prefix=~/.npm-global
+prefix=/home/pedda/.npm-global
+progress=false

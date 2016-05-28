@@ -17,7 +17,7 @@ noremap Q <NOP> " disable ex mode
 "set colorcolumn=100
 " set list = show whitespaces and listchars defines how to show whitespaces
 set list
-set listchars=tab:→\·,eol:⏎
+set listchars=tab:→\ ,eol:⏎
 ",space:·
 " taken from http://stackoverflow.com/questions/24232354/vim-set-color-for-listchars-tabs-and-spaces
 " Color taken from http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html

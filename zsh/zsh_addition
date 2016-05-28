@@ -9,7 +9,7 @@ compinit
 # deactivate xon/xoff inorder to allof ctrl-s and ctrl-q commandt to vim and tmux
 stty -ixon
 
-alias python=python3
+#alias python=python3
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -48,7 +48,6 @@ CXX=/usr/bin/g++
 CC=/usr/bin/gcc
 ARDUINO_SDK_PATH=~/local/arduino
 AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
-
 GRAILS_HOME=~/hack/grails
 JAVA_HOME=/opt/Oracle_Java/jdk
 GWT_HOME=~/hack/gwt
@@ -58,15 +57,14 @@ ANDROID_SDK_HOME=~/local/android-sdk
 ANDROID_SDK=~/local/android-sdk
 GRADLE_HOME=~/local/gradle
 SCALA_HOME=~/local/scala
-
-PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin"
+MONGODB_HOME=~/local/mongodb
+TOMCAT_HOME=~/local/tomcat
+PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$TOMCAT_HOME/bin"
 
 export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK
 
 # see https://youtrack.jetbrains.com/issue/IDEA-78860 for more info
 export IBUS_ENABLE_SYNC_MODE=1
-
-
 
 ###-begin-yo-completion-###
 _yo_completion () {
@@ -86,6 +84,3 @@ _yo_completion () {
 }
 compctl -K _yo_completion yo
 #                                                                                                      ###-end-yo-completion-###
-#
-#
-

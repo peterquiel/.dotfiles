@@ -5,7 +5,7 @@
 " vimplug see https://github.com/junegunn/vim-plug
 
 call plug#begin('~/.vim/plugged')
-
+Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree' 
 Plug 'Xuyuanp/nerdtree-git-plugin' 
 Plug 'majutsushi/tagbar'
@@ -27,24 +27,25 @@ Plug 'jez/vim-superman'
 
 " split window navigatigation between tmux and vim
 Plug 'christoomey/vim-tmux-navigator' 
-Plug 'Lokaltog/vim-powerline' 
+Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized' 
 Plug 'scrooloose/syntastic' 
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'tpope/vim-surround' 
 Plug 'tpope/vim-fugitive' 
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-easytags'
-"Plug 'maksimr/vim-translator'
 Plug 'vimwiki/vimwiki'
 Plug 'dkprice/vim-easygrep'
 Plug 'aperezdc/vim-template' 
 Plug 'mattn/emmet-vim'
+
+"auto tags generation in project root folder.
+Plug 'ludovicchabant/vim-gutentags'
 
 "Java development
 Plug 'artur-shaik/vim-javacomplete2'
@@ -57,12 +58,12 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'claco/jasmine.vim'
+Plug 'marijnh/tern_for_vim'
 
 " Arduino Development Plugins
 Plug '4Evergreen4/vim-hardy'
 Plug 'sudar/vim-arduino-syntax'
 call plug#end()
-
 
 "colorscheme distinguished
 colorscheme solarized
@@ -81,14 +82,6 @@ let g:NERDTreeMapOpenRecursively='D'
 let g:NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let g:NERDTreeChDirMode=2
 let g:NERDTreeShowBookmarks=1
-" -------------------------------------
-" -- configuration of indet plugin.
-" ------------------------------------
-"vertical line indentation
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#09AA08'
-let g:indentLine_char = '│'
-
 
 " -------------------------------------
 " -- configuration of the autosave plugin
@@ -115,15 +108,18 @@ let g:syntastic_shell="/bin/bash"
 "only -Xlint will enable all warnings, but I don't want to see the missing serialUID warnings
 " removed: serial
 let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,deprecation,dep-ann,divzero,empty,fallthrough,finally,options,overloads,overrides,path,processing,rawtypes,static,try,unchecked,varargs}'
-"let g:syntastic_java_checkers=['javac']
+"let g:syntastic_java_checkers = ['checkstyle', 'javac']
 "let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_php_checkers = ['php']
 "let g:syntastic_disabled_filetypes=['html']
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_json_checkers = ['jsonlint']
 " configure syntastic to recognize my own directives
 let g:syntastic_html_tidy_blocklevel_tags = ['']
 let g:syntastic_html_tidy_ignore_errors = ['']
-
+let g:loaded_syntastic_java_checkstyle_checker = 1
+let g:syntastic_java_checkstyle_classpath = '~/hack/libs/checkstyle-6.18-all.jar'
+let g:syntastic_java_checkstyle_conf_file = 'checkstyle-rules.xml'
 " -------------------------------------
 " -- configuration of the ulti snippet
 " ------------------------------------
@@ -153,6 +149,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 " ------------------------------------
 noremap <C-j> :CtrlPTag<cr>
 let g:ctrlp_map = '<c-l>'
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlp/cache'
@@ -275,7 +272,7 @@ let g:ag_apply_lmappings=0
 " configure autoformat plugin
 let g:autoformat_verbosemode=1
 " js beautifier, read https://www.npmjs.com/package/js-beautify
-
+"let g:formatdef_htmlbeautify = '"html-beautify -E \"head,body,html,p,div,input,table,tr,th,a,span\" -f - -s ".shiftwidth()'
 " configure repeat plugin
 " remove ReapeatUndo mapping from the repeat plugin because it destroys my C-rstd Windownaigation
 nnoremap <C-k> <Plug>(RepeatRedo)
@@ -334,6 +331,8 @@ let g:javascript_ignore_javaScriptdoc = 1
 let g:used_javascript_libs = 'angularjs,angularui,angularuirouter,jasmine,chai'
 
 " configuration of the vim-angular plugin
+let g:angular_source_directory = 'src/app'
+let g:angular_test_directory = 'tests'
 let g:angular_find_ignore = ['build/', 'dist/']
 let g:angular_filename_convention = 'camelcased' " alternative is 'titlecased'
 let g:angular_jasmine_version =2 
@@ -341,3 +340,33 @@ let g:angular_jasmine_version =2
 " configure arduino sdk location
 let g:hardy_arduino_path='/home/pedda/local/arduino/arduino'
 let g:hardy_arduino_options='--board arduino:avr:micro --port /dev/ttyACM3'
+
+" configure tern for vim plugin
+let g:tern_map_keys=1
+let g:tern_show_argument_hints='on_hold'
+
+" configure gutentags plugin
+let g:gutentags_tagfile='.tags'
+
+" configure indent plugi
+let g:indentLine_char = '┆'
+let g:indentLine_color_term = 239
+
+" configure light line / powerline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
