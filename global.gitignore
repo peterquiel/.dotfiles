@@ -1,0 +1,4 @@
+# my global .gitignore file, configure with git config core.excludesfile
+~*
+.tags
+tags
