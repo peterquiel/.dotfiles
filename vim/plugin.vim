@@ -12,7 +12,7 @@ Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim' 
 
 Plug 'rking/ag.vim'
-
+Plug 'airblade/vim-rooter'
 " doc can be found here: :help UltiSnips
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
@@ -40,7 +40,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 
 Plug 'vimwiki/vimwiki'
-Plug 'dkprice/vim-easygrep'
+"Plug 'dkprice/vim-easygrep'
 Plug 'aperezdc/vim-template' 
 Plug 'mattn/emmet-vim'
 
@@ -120,6 +120,7 @@ let g:syntastic_html_tidy_ignore_errors = ['']
 let g:loaded_syntastic_java_checkstyle_checker = 1
 let g:syntastic_java_checkstyle_classpath = '~/hack/libs/checkstyle-6.18-all.jar'
 let g:syntastic_java_checkstyle_conf_file = 'checkstyle-rules.xml'
+let g:syntastic_html_validator_parser='html5'
 " -------------------------------------
 " -- configuration of the ulti snippet
 " ------------------------------------
@@ -148,6 +149,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 " -- configuration of the ctrlp plugin
 " ------------------------------------
 noremap <C-j> :CtrlPTag<cr>
+set wildignore="node_modules,.git,bower_components"
 let g:ctrlp_map = '<c-l>'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
@@ -160,49 +162,49 @@ let g:ctrlp_open_multiple_files = 'v'
 map <F5>  :ClearAllCtrlPCaches<CR> 
 "Take from http://stackoverflow.com/questions/2372307/opening-files-in-vim-using-fuzzy-search
 if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " -S: SmartCase -f follow symlings -l print files matches and not matching line, 
-  let g:ctrlp_user_command = 'ag -S %s -l --hidden --ignore .git -f --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    " -S: SmartCase -f follow symlings -l print files matches and not matching line, 
+    let g:ctrlp_user_command = 'ag -S %s -l --hidden --ignore .git -f --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
 endif
 
 "remove mepping in order to toggle fname in ctrlp
 let g:ctrlp_prompt_mappings = {
-      \ 'PrtBS()':              ['<bs>', '<c-]>'],
-      \ 'PrtDelete()':          ['<del>'],
-      \ 'PrtDeleteWord()':      ['<c-w>'],
-      \ 'PrtClear()':           ['<c-u>'],
-      \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
-      \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
-      \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-      \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-      \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-      \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-      \ 'PrtHistory(-1)':       ['<c-n>'],
-      \ 'PrtHistory(1)':        ['<c-p>'],
-      \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-      \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-      \ 'AcceptSelection("t")': ['<c-t>'],
-      \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-      \ 'ToggleFocus()':        ['<s-tab>'],
-      \ 'ToggleRegex()':        ['<c-k>'],
-      \ 'ToggleByFname()':      ['<c-h>'],
-      \ 'ToggleType(1)':        ['<c-l>', '<c-up>'],
-      \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-      \ 'PrtExpandDir()':       ['<tab>'],
-      \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-      \ 'PrtInsert()':          ['<c-\>'],
-      \ 'PrtCurStart()':        ['<c-a>'],
-      \ 'PrtCurEnd()':          ['<c-e>'],
-      \ 'PrtCurLeft()':         ['<c-r>', '<left>', '<c-^>'],
-      \ 'PrtCurRight()':        ['<c-d>', '<right>'],
-      \ 'PrtClearCache()':      ['<F5>'],
-      \ 'PrtDeleteEnt()':       ['<F7>'],
-      \ 'CreateNewFile()':      ['<c-y>'],
-      \ 'MarkToOpen()':         ['<c-z>'],
-      \ 'OpenMulti()':          ['<c-o>'],
-      \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-      \ }
+            \ 'PrtBS()':              ['<bs>', '<c-]>'],
+            \ 'PrtDelete()':          ['<del>'],
+            \ 'PrtDeleteWord()':      ['<c-w>'],
+            \ 'PrtClear()':           ['<c-u>'],
+            \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
+            \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
+            \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+            \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+            \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+            \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+            \ 'PrtHistory(-1)':       ['<c-n>'],
+            \ 'PrtHistory(1)':        ['<c-p>'],
+            \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+            \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+            \ 'AcceptSelection("t")': ['<c-t>'],
+            \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+            \ 'ToggleFocus()':        ['<s-tab>'],
+            \ 'ToggleRegex()':        ['<c-k>'],
+            \ 'ToggleByFname()':      ['<c-h>'],
+            \ 'ToggleType(1)':        ['<c-l>', '<c-up>'],
+            \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+            \ 'PrtExpandDir()':       ['<tab>'],
+            \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+            \ 'PrtInsert()':          ['<c-\>'],
+            \ 'PrtCurStart()':        ['<c-a>'],
+            \ 'PrtCurEnd()':          ['<c-e>'],
+            \ 'PrtCurLeft()':         ['<c-r>', '<left>', '<c-^>'],
+            \ 'PrtCurRight()':        ['<c-d>', '<right>'],
+            \ 'PrtClearCache()':      ['<F5>'],
+            \ 'PrtDeleteEnt()':       ['<F7>'],
+            \ 'CreateNewFile()':      ['<c-y>'],
+            \ 'MarkToOpen()':         ['<c-z>'],
+            \ 'OpenMulti()':          ['<c-o>'],
+            \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+            \ }
 
 " configuration of the vim android/gradle plugin
 let g:gradle_path =$GRADLE_HOME 
@@ -215,6 +217,14 @@ nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_BaseDir = '~/.vim/.javacomplete_cache'
 let g:JavaComplete_ImportOrder = ['java.', 'javax.', 'com.', 'org.', 'net.']
+let g:JavaComplete_UseFQN = 1
+let g:JavaComplete_MavenRepositoryDisable = 0
+let g:JavaComplete_ClosingBrace = 1
+"let g:JavaComplete_SourcesPath='/opt/Oracle_Java/jdk/src/'
+"Add i.e. server libs a.s.o
+"let g:JavaComplete_LibsPath
+let g:JavaComplete_JavaviLogfileDirectory = '/tmp/'
+let g:JavaComplete_JavaviDebug = 1
 
 " configuring the omnifunc completion
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
@@ -346,7 +356,7 @@ let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
 " configure gutentags plugin
-let g:gutentags_tagfile='.tags'
+let g:gutentags_tagfile='.gtags'
 
 " configure indent plugi
 let g:indentLine_char = '┆'
@@ -354,19 +364,138 @@ let g:indentLine_color_term = 239
 
 " configure light line / powerline
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+            \ 'colorscheme': 'wombat',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+            \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightLineFugitive',
+            \   'filename': 'LightLineFilename',
+            \   'fileformat': 'LightLineFileformat',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileencoding': 'LightLineFileencoding',
+            \   'mode': 'LightLineMode',
+            \   'ctrlpmark': 'CtrlPMark',
+            \ },
+            \ 'component_expand': {
+            \   'syntastic': 'SyntasticStatuslineFlag',
+            \ },
+            \ 'component_type': {
+            \   'syntastic': 'error',
+            \ },
+            \ 'subseparator': { 'left': '|', 'right': '|' }
+            \ }
+
+function! LightLineModified()
+    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+    return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! LightLineFilename()
+    let fname = expand('%:p')
+    if fname =~ getcwd() 
+        let path = split(getcwd(), '/')
+        let startindex = strlen(getcwd()) +1
+        if strlen(fname) - startindex > 40
+            let startindex = strlen(fname) - 40
+        endif
+        let fname = '[' . get(path, len(path)-1 ). ']' . strpart(fname, startindex, strlen(fname) - startindex)
+    endif
+    return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+                \ fname == '__Tagbar__' ? g:lightline.fname :
+                \ fname =~ '__Gundo\|NERD_tree' ? '' :
+                \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+                \ &ft == 'unite' ? unite#get_status_string() :
+                \ &ft == 'vimshell' ? vimshell#get_status_string() :
+                \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+                \ ('' != fname ? fname : '[No Name]') .
+                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFugitive()
+    try
+        if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+            let mark = '⭠ '
+            let branch = fugitive#head()
+            return branch !=# '' ? mark.branch : ''
+        endif
+    catch
+    endtry
+    return ''
+endfunction
+
+function! LightLineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineMode()
+    let fname = expand('%:t')
+    return fname == '__Tagbar__' ? 'Tagbar' :
+                \ fname == 'ControlP' ? 'CtrlP' :
+                \ fname == '__Gundo__' ? 'Gundo' :
+                \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+                \ fname =~ 'NERD_tree' ? 'NERDTree' :
+                \ &ft == 'unite' ? 'Unite' :
+                \ &ft == 'vimfiler' ? 'VimFiler' :
+                \ &ft == 'vimshell' ? 'VimShell' :
+                \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! CtrlPMark()
+    if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
+        call lightline#link('iR'[g:lightline.ctrlp_regex])
+        return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+                    \ , g:lightline.ctrlp_next], 0)
+    else
+        return ''
+    endif
+endfunction
+
+let g:ctrlp_status_func = {
+            \ 'main': 'CtrlPStatusFunc_1',
+            \ 'prog': 'CtrlPStatusFunc_2',
+            \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+    let g:lightline.ctrlp_regex = a:regex
+    let g:lightline.ctrlp_prev = a:prev
+    let g:lightline.ctrlp_item = a:item
+    let g:lightline.ctrlp_next = a:next
+    return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+    return lightline#statusline(0)
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+    return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+    autocmd!
+    autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+    SyntasticCheck
+    call lightline#update()
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0

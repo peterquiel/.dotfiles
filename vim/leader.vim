@@ -11,16 +11,18 @@ nnoremap <leader>af :Autoformat <cr>
 nnoremap <leader>t  :cn<cr>
 nnoremap <leader>s  :cp<cr>
 
-nnoremap <leader>nos :nohlsearch<CR>
 
 nnoremap <leader>fs :NERDTreeFind<cr>
 nnoremap <LEADER>, :TagbarToggle<CR>
+
 
 " write file as root
 nnoremap <leader>wr :write !sudo tee > /dev/null % <cr>
 
 "replace selected word in the current buffer by ..
-vnoremap <leader>r y :%s/<c-r>"/
+nnoremap <leader>nos :nohlsearch<CR>
+vnoremap <leader>rf y :%s/<c-r>"/
+vnoremap <leader>ss y :Ag <c-r>" <CR>
 
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>

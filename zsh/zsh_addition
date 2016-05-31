@@ -6,16 +6,16 @@ autoload -Uz compinit
 compinit
 
 
-# deactivate xon/xoff inorder to allof ctrl-s and ctrl-q commandt to vim and tmux
+# deactivate xon/xoff in order to allof ctrl-s and ctrl-q command to vim and tmux
 stty -ixon
 
-#alias python=python3
+alias python=python3
 
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias fif='ag -Su -f --hidden --ignore .git ' # find in file, searches hidden but not in git dir and follow symlinks
+alias fif='ag -S -f --ignore target --ignore build ' # find in file, searches hidden but not in git dir and follow symlinks
 alias fij='fif --java ' # find in java file, searches for content in java files only
 alias fip='fif --php ' # find in php files, searches for content in php files only
 alias fijs='fif --js ' # searches in javascript files, search for content in javascript files only

@@ -109,8 +109,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j " Delete comment character when joining commented lines
 endif
 
-" the ; after tags makes vim look for the file upwards
-set tags=./.tags;./.tags_addition;,~/.vim/.tags
+" the ; after tags makes vim look for the file upwards, the .gtags file is generateb by the guten_tags plugin
+set tags=./.tags;,./.gtags;,~/.vim/.tags
 " always ask if there are more tags matching.
 noremap <C-]> g<C-]>
 

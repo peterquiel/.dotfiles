@@ -1,5 +1,8 @@
---extra=+q
---fields=+a
+--extra=+q+f
+--fields=+a+i+l+s+S+t
 --exclude=build
 --exclude=.git
+--exclude=target
+--exclude=node_modules
+--exclude=gulp
 -R

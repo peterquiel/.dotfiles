@@ -13,7 +13,6 @@ let g:solarized_termcolors=256
 
 
 noremap Q <NOP> " disable ex mode
-
 "set colorcolumn=100
 " set list = show whitespaces and listchars defines how to show whitespaces
 set list
