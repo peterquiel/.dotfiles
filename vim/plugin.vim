@@ -246,7 +246,7 @@ let g:tagbar_map_zoomwin='A' " same as nerdtree zoom
 " configuration of vim-easytags
 let g:easytags_async=0
 " set this to always if vim highlighting slows down, auto is default
-let g:easytags_syntax_keyword = 'always'
+let g:easytags_syntax_keyword = 'auto'
 let g:easytags_file = '~/.vim/.tags'
 " make easy tags look for tags file in project dir
 let g:easytags_dynamic_files = 1
@@ -283,6 +283,7 @@ let g:ag_apply_lmappings=0
 let g:autoformat_verbosemode=1
 " js beautifier, read https://www.npmjs.com/package/js-beautify
 "let g:formatdef_htmlbeautify = '"html-beautify -E \"head,body,html,p,div,input,table,tr,th,a,span\" -f - -s ".shiftwidth()'
+
 " configure repeat plugin
 " remove ReapeatUndo mapping from the repeat plugin because it destroys my C-rstd Windownaigation
 nnoremap <C-k> <Plug>(RepeatRedo)
@@ -290,7 +291,7 @@ nnoremap <C-k> <Plug>(RepeatRedo)
 " configuring of vim-template plugin
 let g:templates_directory='~/.dotfiles/vim/vim-templates'
 let g:templates_no_autocmd=1
-let g:email = "peter.quiel@gmail.com"
+let g:email = "peter.quiel@wallmedien.de"
 let g:user = "Peter Quiel"                                         
 "let g:license = "Apache 2.0"
 let g:templates_global_name_prefix='template_'
@@ -366,10 +367,11 @@ let g:indentLine_color_term = 239
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive','project',  'filename' ], ['ctrlpmark'] ],
             \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
             \ },
             \ 'component_function': {
+            \   'project' : 'LightLineProject',
             \   'fugitive': 'LightLineFugitive',
             \   'filename': 'LightLineFilename',
             \   'fileformat': 'LightLineFileformat',
@@ -384,7 +386,8 @@ let g:lightline = {
             \ 'component_type': {
             \   'syntastic': 'error',
             \ },
-            \ 'subseparator': { 'left': '|', 'right': '|' }
+            \ 'separator': { 'left': '⮀', 'right': '⮂' },
+            \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
             \ }
 
 function! LightLineModified()
@@ -392,18 +395,17 @@ function! LightLineModified()
 endfunction
 
 function! LightLineReadonly()
-    return &ft !~? 'help' && &readonly ? 'RO' : ''
+    return &ft !~? 'help' && &readonly ? '⭤' : ''
 endfunction
 
 function! LightLineFilename()
     let fname = expand('%:p')
     if fname =~ getcwd() 
-        let path = split(getcwd(), '/')
         let startindex = strlen(getcwd()) +1
         if strlen(fname) - startindex > 40
             let startindex = strlen(fname) - 40
         endif
-        let fname = '[' . get(path, len(path)-1 ). ']' . strpart(fname, startindex, strlen(fname) - startindex)
+        let fname = strpart(fname, startindex, strlen(fname) - startindex)
     endif
     return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
                 \ fname == '__Tagbar__' ? g:lightline.fname :
@@ -426,6 +428,11 @@ function! LightLineFugitive()
     catch
     endtry
     return ''
+endfunction
+
+function! LightLineProject()
+    let path = split(getcwd(), '/')
+    return get(path, len(path) -1)
 endfunction
 
 function! LightLineFileformat()
