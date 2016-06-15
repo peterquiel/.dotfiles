@@ -1,4 +1,3 @@
-
 let mapleader = ","
 
 nnoremap <leader>q  :q!<cr>
@@ -7,22 +6,27 @@ nnoremap <leader>q  :q!<cr>
 nnoremap <leader>ff  mzgg=G`z
 nnoremap <leader>af :Autoformat <cr>
 
-"step through quick fixes. 
+"step through quick fixes.
 nnoremap <leader>t  :cn<cr>
 nnoremap <leader>s  :cp<cr>
 
-
 nnoremap <leader>fs :NERDTreeFind<cr>
-nnoremap <LEADER>, :TagbarToggle<CR>
+"nnoremap <LEADER>, :TagbarToggle<CR>
 
-
+nnoremap <leader>uu i<cr><Esc>:.-1read !uuid<cr>kJxJx
 " write file as root
 nnoremap <leader>wr :write !sudo tee > /dev/null % <cr>
+nnoremap <leader>wf :write<cr>
 
 "replace selected word in the current buffer by ..
 nnoremap <leader>nos :nohlsearch<CR>
 vnoremap <leader>rf y :%s/<c-r>"/
 vnoremap <leader>ss y :Ag <c-r>" <CR>
+
+nnoremap <leader>pt :CtrlPTag<cr>
+nnoremap <leader>pm :CtrlPMixed<cr>
+nnoremap <leader>pb :CtrlPBufTagAll<cr>
+nnoremap <leader>pl :CtrlPLine<cr>
 
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>

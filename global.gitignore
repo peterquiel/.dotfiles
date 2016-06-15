@@ -4,3 +4,5 @@
 tags
 *.swp
 *.gtags
+rebel.xml
+rebel-remote.xml

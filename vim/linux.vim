@@ -5,9 +5,14 @@ nnoremap <silent> <C-r> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-t> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-s> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-d> :TmuxNavigateRight<cr>
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepformat=%f:%l:%c:%m
+    command! -nargs=+ -bang Ag silent! grep <args> | redraw! | botright copen
+endif
 
 "let $TMPDIR = '/tmp/vim-' . $USER
 "silent! call mkdir($TMPDIR, '', 0700)
-""In case /tmp get's clean out, make a new tmp directory for vim:               
-"command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"",0700)  
+""In case /tmp get's clean out, make a new tmp directory for vim:
+"command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"",0700)
 

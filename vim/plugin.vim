@@ -7,20 +7,20 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree' 
-Plug 'Xuyuanp/nerdtree-git-plugin' 
-Plug 'majutsushi/tagbar'
+"Plug 'Xuyuanp/nerdtree-git-plugin' 
+"Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim' 
 
-Plug 'rking/ag.vim'
+"Plug 'rking/ag.vim'
 Plug 'airblade/vim-rooter'
 " doc can be found here: :help UltiSnips
-Plug 'SirVer/ultisnips' 
-Plug 'honza/vim-snippets'
-Plug 'sudar/vim-arduino-snippets'
+"Plug 'SirVer/ultisnips' 
+"Plug 'honza/vim-snippets'
+"Plug 'sudar/vim-arduino-snippets'
 Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe' 
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'vim-scripts/dbext.vim'
+"Plug 'shawncplus/phpcomplete.vim'
+"Plug 'vim-scripts/dbext.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-scripts/vim-auto-save' 
 Plug 'jez/vim-superman' 
@@ -45,10 +45,11 @@ Plug 'aperezdc/vim-template'
 Plug 'mattn/emmet-vim'
 
 "auto tags generation in project root folder.
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 "Java development
-Plug 'artur-shaik/vim-javacomplete2'
+"disabled due to problems with multi project completion.
+"Plug 'artur-shaik/vim-javacomplete2'
 
 " javascript plugins, these plugins are recommended by the vim-angular plugin.
 Plug 'burnettk/vim-angular'
@@ -63,6 +64,8 @@ Plug 'marijnh/tern_for_vim'
 " Arduino Development Plugins
 Plug '4Evergreen4/vim-hardy'
 Plug 'sudar/vim-arduino-syntax'
+
+Plug 'AndrewRadev/linediff.vim'
 call plug#end()
 
 "colorscheme distinguished
@@ -86,7 +89,7 @@ let g:NERDTreeShowBookmarks=1
 " -------------------------------------
 " -- configuration of the autosave plugin
 " ------------------------------------
-let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save = 0  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 " let g:auto_save_postsave_hook = 'TagsGenerate'  " this will run :TagsGenerate after each save
 
@@ -149,7 +152,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 " -- configuration of the ctrlp plugin
 " ------------------------------------
 noremap <C-j> :CtrlPTag<cr>
-set wildignore="node_modules,.git,bower_components"
+set wildignore="node_modules,.git,bower_components,target"
 let g:ctrlp_map = '<c-l>'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
@@ -164,7 +167,7 @@ map <F5>  :ClearAllCtrlPCaches<CR>
 if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
     " -S: SmartCase -f follow symlings -l print files matches and not matching line, 
-    let g:ctrlp_user_command = 'ag -S %s -l --hidden --ignore .git -f --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag -S %s -l  --ignore target --ignore bower_components --ignore node_modules -f --nocolor -g ""'
     let g:ctrlp_use_caching = 0
 endif
 
@@ -357,7 +360,7 @@ let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
 " configure gutentags plugin
-let g:gutentags_tagfile='.gtags'
+"let g:gutentags_tagfile='.gtags'
 
 " configure indent plugi
 let g:indentLine_char = '┆'

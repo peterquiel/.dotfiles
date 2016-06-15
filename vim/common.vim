@@ -51,6 +51,7 @@ set completeopt=longest,menuone
 " -- configure motion for my colmak layout, as a left hand person.
 " ------------------------------------
 "reverse map the default navigation mapping.
+imap jj <Esc>
 
 noremap h d
 noremap H D
@@ -64,8 +65,8 @@ noremap d l
 noremap s gk
 noremap t gj
 "navigation from function to function, when using curly braces langs, behaves in Python the same way due to python mode.
-noremap S {
-noremap T }
+noremap S 10k
+noremap T 10j
 "navigate word wise if using capital letters
 noremap R b
 noremap D w
