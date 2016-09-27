@@ -7,20 +7,16 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree' 
-"Plug 'Xuyuanp/nerdtree-git-plugin' 
-"Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim' 
 
-"Plug 'rking/ag.vim'
 Plug 'airblade/vim-rooter'
 " doc can be found here: :help UltiSnips
-"Plug 'SirVer/ultisnips' 
-"Plug 'honza/vim-snippets'
-"Plug 'sudar/vim-arduino-snippets'
+Plug 'SirVer/ultisnips' 
+Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe' 
+
 "Plug 'shawncplus/phpcomplete.vim'
-"Plug 'vim-scripts/dbext.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-scripts/vim-auto-save' 
 Plug 'jez/vim-superman' 
@@ -52,20 +48,25 @@ Plug 'mattn/emmet-vim'
 "Plug 'artur-shaik/vim-javacomplete2'
 
 " javascript plugins, these plugins are recommended by the vim-angular plugin.
-Plug 'burnettk/vim-angular'
-Plug 'jelera/vim-javascript-syntax' 
+"Plug 'burnettk/vim-angular'
+"Plug 'jelera/vim-javascript-syntax' 
+
 " Syntax Complete Plugin 
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'matthewsimo/angular-vim-snippets'
-Plug 'claco/jasmine.vim'
-Plug 'marijnh/tern_for_vim'
+"Plug 'othree/javascript-libraries-syntax.vim'
+"Plug 'pangloss/vim-javascript'
+"Plug 'matthewsimo/angular-vim-snippets'
+"Plug 'claco/jasmine.vim'
+"Plug 'marijnh/tern_for_vim'
 
 " Arduino Development Plugins
 Plug '4Evergreen4/vim-hardy'
 Plug 'sudar/vim-arduino-syntax'
 
 Plug 'AndrewRadev/linediff.vim'
+
+Plug 'asciidoc/vim-asciidoc'
+Plug 'wannesm/wmgraphviz.vim'
+
 call plug#end()
 
 "colorscheme distinguished
@@ -79,6 +80,7 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeMapOpenInTab='\t'
+let g:NERDTreeMapOpenInTabSilent='g'
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeMapActiveNode='d'
 let g:NERDTreeMapOpenRecursively='D'
@@ -89,7 +91,7 @@ let g:NERDTreeShowBookmarks=1
 " -------------------------------------
 " -- configuration of the autosave plugin
 " ------------------------------------
-let g:auto_save = 0  " enable AutoSave on Vim startup
+let g:auto_save = 0  " enable/disable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 " let g:auto_save_postsave_hook = 'TagsGenerate'  " this will run :TagsGenerate after each save
 
@@ -113,7 +115,7 @@ let g:syntastic_shell="/bin/bash"
 let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,deprecation,dep-ann,divzero,empty,fallthrough,finally,options,overloads,overrides,path,processing,rawtypes,static,try,unchecked,varargs}'
 "let g:syntastic_java_checkers = ['checkstyle', 'javac']
 "let g:syntastic_java_javac_config_file_enabled = 1
-let g:syntastic_php_checkers = ['php']
+"let g:syntastic_php_checkers = ['php']
 "let g:syntastic_disabled_filetypes=['html']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_json_checkers = ['jsonlint']
@@ -121,8 +123,8 @@ let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_html_tidy_blocklevel_tags = ['']
 let g:syntastic_html_tidy_ignore_errors = ['']
 let g:loaded_syntastic_java_checkstyle_checker = 1
-let g:syntastic_java_checkstyle_classpath = '~/hack/libs/checkstyle-6.18-all.jar'
-let g:syntastic_java_checkstyle_conf_file = 'checkstyle-rules.xml'
+"let g:syntastic_java_checkstyle_classpath = '~/hack/libs/checkstyle-6.18-all.jar'
+"let g:syntastic_java_checkstyle_conf_file = 'checkstyle-rules.xml'
 let g:syntastic_html_validator_parser='html5'
 " -------------------------------------
 " -- configuration of the ulti snippet
@@ -132,12 +134,13 @@ let g:UltiSnipsUsePythonVersion = 3
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " better key bindings for UltiSnipsExpandTrigger
 " http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsListSnippets="<C-j>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsListSnippets="<c-g>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/UltiSnips"
 
 " -------------------------------------
 " -- configuration of you complete me plugin
@@ -208,13 +211,6 @@ let g:ctrlp_prompt_mappings = {
             \ 'OpenMulti()':          ['<c-o>'],
             \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
             \ }
-
-" configuration of the vim android/gradle plugin
-let g:gradle_path =$GRADLE_HOME 
-let g:android_sdk_path = $ANDROID_SDK_HOME
-let g:android_adb_tool = "$ANDROID_SDK_HOME/platform-tools/adb"
-let g:android_quickfix_show = 1
-
 " configuration of the javacomplete2 plugin
 nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 let g:JavaComplete_ClosingBrace = 1
@@ -231,13 +227,15 @@ let g:JavaComplete_JavaviDebug = 1
 
 " configuring the omnifunc completion
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
 autocmd Filetype css  setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType c setlocal omnifunc=ccomplete#CompleteCpp
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd BufNewFile,BufRead *.scss set ft=scss.css
+
 
 " configuring tagbar plugin
 " type :help tagbar for documentation
@@ -509,3 +507,7 @@ endfunction
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
+
+
+" fugitive, deletes buffer when hidden.
+autocmd BufReadPost fugitive://* set bufhidden=delete

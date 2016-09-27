@@ -6,10 +6,13 @@ nnoremap <silent> <C-t> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-s> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-d> :TmuxNavigateRight<cr>
 if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepprg=ag\ --vimgrep\ --ignore\ target\ --ignore\ node_modules
     set grepformat=%f:%l:%c:%m
     command! -nargs=+ -bang Ag silent! grep <args> | redraw! | botright copen
 endif
+
+" create a new Ag command, taken from https://robots.thoughtbot.com/faster-grepping-in-vim
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
 "let $TMPDIR = '/tmp/vim-' . $USER
 "silent! call mkdir($TMPDIR, '', 0700)

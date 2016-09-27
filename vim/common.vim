@@ -131,3 +131,6 @@ endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>/<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>?<CR>
+
+"open quickfix window after grep.
+autocmd QuickFixCmdPost *grep* cwindow

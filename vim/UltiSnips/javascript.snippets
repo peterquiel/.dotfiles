@@ -1,0 +1,10 @@
+snippet setget "js getter and setter" b
+set ${2:${VISUAL}}($2) {
+	this.${1:data}.$2 = $2;
+}
+
+get $2() {
+	return this.$1.$2;
+}
+$0
+endsnippet
