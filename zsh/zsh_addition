@@ -36,6 +36,8 @@ alias clipdiff='vimdiff <(xclip -o) <(xclip -o -selection clipbord)'
 alias scan-duplex-low='hp-scan --duplex -spdf -mgray -r150 --adf -f '
 alias scan-duplex-high='hp-scan --duplex -spdf -mcolor -r300 --adf -f '
 
+alias kc='kubectl' 
+
 alias -g ...='../..'
 alias -g ....='../../..'
 
@@ -50,6 +52,7 @@ CC=/usr/bin/gcc
 ARDUINO_SDK_PATH=~/local/arduino
 AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
 GRAILS_HOME=~/hack/grails
+#JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 JAVA_HOME=/opt/Oracle_Java/jdk
 GWT_HOME=~/hack/gwt
 MAVEN_HOME=/usr/share/maven

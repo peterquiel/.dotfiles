@@ -1,72 +1,69 @@
 " External plugins
-" 
 "
 " inspired by https://github.com/jbe/.vim/blob/master/plugins.vim
 " vimplug see https://github.com/junegunn/vim-plug
 
 call plug#begin('~/.vim/plugged')
+" displays vertical lines for indention.
 Plug 'Yggdroot/indentLine'
+" Displays folders and files in a explorer like tree.
 Plug 'scrooloose/nerdtree' 
+" Search and open files, Tags aso.
 Plug 'ctrlpvim/ctrlp.vim' 
-
+" Changes the working directory to the project root, when changing files.
 Plug 'airblade/vim-rooter'
 " doc can be found here: :help UltiSnips
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
+
 Plug 'Valloric/YouCompleteMe' 
 
-"Plug 'shawncplus/phpcomplete.vim'
+" For different formatters, uses this by <leadea>af
 Plug 'Chiel92/vim-autoformat'
-Plug 'vim-scripts/vim-auto-save' 
+" Filtype for Unix Man Pages.
 Plug 'jez/vim-superman' 
 
 " split window navigatigation between tmux and vim
 Plug 'christoomey/vim-tmux-navigator' 
+" The nice powerline plugin/
 Plug 'itchyny/lightline.vim'
+" theme for vim.
 Plug 'altercation/vim-colors-solarized' 
+" syntax checker plugin
 Plug 'scrooloose/syntastic' 
+" easy toggle comments for different languages.
 Plug 'scrooloose/nerdcommenter'
 
+" surround text with tags,braces aso.
 Plug 'tpope/vim-surround' 
+" the best vim git plugin ever..
 Plug 'tpope/vim-fugitive' 
+" shows small git changes icons in the sidebar. 
 Plug 'airblade/vim-gitgutter'
+" Async build plugin for vim.
 Plug 'tpope/vim-dispatch'
+" A repeat plugin, makes the '.' working with surround and other plugins.
 Plug 'tpope/vim-repeat'
+" A set of convenient mappings for vim 
 Plug 'tpope/vim-unimpaired'
 
+" the wike plugin.
 Plug 'vimwiki/vimwiki'
-"Plug 'dkprice/vim-easygrep'
+" A simple file template plugin for vim.
 Plug 'aperezdc/vim-template' 
+" Formally known as zen coding.
 Plug 'mattn/emmet-vim'
 
-"auto tags generation in project root folder.
-"Plug 'ludovicchabant/vim-gutentags'
-
-"Java development
-"disabled due to problems with multi project completion.
-"Plug 'artur-shaik/vim-javacomplete2'
-
-" javascript plugins, these plugins are recommended by the vim-angular plugin.
-"Plug 'burnettk/vim-angular'
-"Plug 'jelera/vim-javascript-syntax' 
-
-" Syntax Complete Plugin 
-"Plug 'othree/javascript-libraries-syntax.vim'
-"Plug 'pangloss/vim-javascript'
-"Plug 'matthewsimo/angular-vim-snippets'
-"Plug 'claco/jasmine.vim'
-"Plug 'marijnh/tern_for_vim'
-
-" Arduino Development Plugins
+" Arduino lang support. Syntax, compilation and verification of arduino code.
 Plug '4Evergreen4/vim-hardy'
+" Syntax sugar and auto completion for arduino code.
 Plug 'sudar/vim-arduino-syntax'
-
+" diff visually marked pieces of text.
 Plug 'AndrewRadev/linediff.vim'
-
+" Support for adoc files
 Plug 'asciidoc/vim-asciidoc'
+" plugin for graphviz dot. Syntax, ultisnips, compiling, showing aso.
 Plug 'wannesm/wmgraphviz.vim'
-
 call plug#end()
 
 "colorscheme distinguished
@@ -75,25 +72,17 @@ colorscheme solarized
 " -------------------------------------
 " -- configure nerd tree stuff
 " ------------------------------------
-" toggle nerd tree with ctrl-n
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeMapOpenInTab='\t'
-let g:NERDTreeMapOpenInTabSilent='g'
+let g:NERDTreeMapOpenInTabSilent='G'
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeMapActiveNode='d'
 let g:NERDTreeMapOpenRecursively='D'
 let g:NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let g:NERDTreeChDirMode=2
 let g:NERDTreeShowBookmarks=1
-
-" -------------------------------------
-" -- configuration of the autosave plugin
-" ------------------------------------
-let g:auto_save = 0  " enable/disable AutoSave on Vim startup
-let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
-" let g:auto_save_postsave_hook = 'TagsGenerate'  " this will run :TagsGenerate after each save
 
 let g:Powerline_symbols = 'fancy'
 
@@ -119,13 +108,11 @@ let g:syntastic_java_javac_options = '-Xlint:{auxiliaryclass,cast,classfile,depr
 "let g:syntastic_disabled_filetypes=['html']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_json_checkers = ['jsonlint']
-" configure syntastic to recognize my own directives
 let g:syntastic_html_tidy_blocklevel_tags = ['']
 let g:syntastic_html_tidy_ignore_errors = ['']
 let g:loaded_syntastic_java_checkstyle_checker = 1
-"let g:syntastic_java_checkstyle_classpath = '~/hack/libs/checkstyle-6.18-all.jar'
-"let g:syntastic_java_checkstyle_conf_file = 'checkstyle-rules.xml'
 let g:syntastic_html_validator_parser='html5'
+
 " -------------------------------------
 " -- configuration of the ulti snippet
 " ------------------------------------
@@ -145,11 +132,16 @@ let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/UltiSnips"
 " -------------------------------------
 " -- configuration of you complete me plugin
 " ------------------------------------
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:SuperTabDefaultCompletionType = 'context'
+" configuring the omnifunc completion
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+"autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
+autocmd Filetype css  setlocal omnifunc=csscomplete#CompleteCSS noci
+autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType c setlocal omnifunc=ccomplete#CompleteCpp
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd BufNewFile,BufRead *.scss set ft=scss.css
 
 " -------------------------------------
 " -- configuration of the ctrlp plugin
@@ -211,7 +203,9 @@ let g:ctrlp_prompt_mappings = {
             \ 'OpenMulti()':          ['<c-o>'],
             \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
             \ }
-" configuration of the javacomplete2 plugin
+" -------------------------------------
+" -- configure javacomplete2 plugin
+" ------------------------------------
 nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_BaseDir = '~/.vim/.javacomplete_cache'
@@ -225,26 +219,10 @@ let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_JavaviLogfileDirectory = '/tmp/'
 let g:JavaComplete_JavaviDebug = 1
 
-" configuring the omnifunc completion
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-"autocmd Filetype php  setlocal omnifunc=phpcomplete#CompletePHP
-autocmd Filetype css  setlocal omnifunc=csscomplete#CompleteCSS noci
-autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType c setlocal omnifunc=ccomplete#CompleteCpp
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd BufNewFile,BufRead *.scss set ft=scss.css
 
-
-" configuring tagbar plugin
-" type :help tagbar for documentation
-let g:tagbar_autoclose=1
-let g:tagbar_autofocus=1
-let g:tagbar_map_togglesort='j'
-let g:tagbar_map_zoomwin='A' " same as nerdtree zoom
-
-" configuration of vim-easytags
+" -------------------------------------
+" -- configure vim-easytags 
+" ------------------------------------
 let g:easytags_async=0
 " set this to always if vim highlighting slows down, auto is default
 let g:easytags_syntax_keyword = 'auto'
@@ -254,7 +232,9 @@ let g:easytags_dynamic_files = 1
 let g:easytags_include_members = 1
 let g:easytags_python_enabled=1
 
-" configuration of surround plugin
+" -------------------------------------
+" -- configure surround plugin
+" ------------------------------------
 " mapping s to j because of my colemak left hand navigation with rstd. 
 let g:surround_no_mappings= 1
 nmap hj  <Plug>Dsurround
@@ -271,25 +251,37 @@ imap <C-J> <Plug>Isurround
 imap <C-G>j <Plug>Isurround
 imap <C-G>J <Plug>ISurround
 
-" configure vim viki plugin
+" -------------------------------------
+" -- configure vim wiki plugin 
+" ------------------------------------
 let g:vimwiki_list = [{'path': '~/knowledgebase/', 'path_html': '~/knowledgebase/html','auto_export': '0',  'ext': '.wiki'}]
 
+" -------------------------------------
+" -- configure  ag search plugin
+" ------------------------------------
 " configure the ag search plugin
 let g:ag_apply_qmappings=0
 let g:ag_qhandler="copen 20"
 let g:ag_highlight=1
 let g:ag_apply_lmappings=0
 
+" -------------------------------------
+" -- configure  auto format plugin
+" ------------------------------------
 " configure autoformat plugin
 let g:autoformat_verbosemode=1
 " js beautifier, read https://www.npmjs.com/package/js-beautify
 "let g:formatdef_htmlbeautify = '"html-beautify -E \"head,body,html,p,div,input,table,tr,th,a,span\" -f - -s ".shiftwidth()'
 
-" configure repeat plugin
+" -------------------------------------
+" -- configure repeat plugin 
+" ------------------------------------
 " remove ReapeatUndo mapping from the repeat plugin because it destroys my C-rstd Windownaigation
 nnoremap <C-k> <Plug>(RepeatRedo)
 
-" configuring of vim-template plugin
+" -------------------------------------
+" -- configure vim template plugin
+" ------------------------------------
 let g:templates_directory='~/.dotfiles/vim/vim-templates'
 let g:templates_no_autocmd=1
 let g:email = "peter.quiel@wallmedien.de"
@@ -314,57 +306,39 @@ let g:templates_global_name_prefix='template_'
 "                   with the absolute path of the current file.
 let g:templates_user_variables=[]
 
+
+" -------------------------------------
+" -- configure easy grep 
+" ------------------------------------
 " configuration of easy grep
 let g:EasyGrepCommand=1
 
-" configure vim-javascript plugin
-let g:javascript_enable_domhtmlcss = 1
-let g:javascript_ignore_javaScriptdoc = 1
-
-" configure javascript syntax plugin
-" Configure used javascript libraries
-" Possible values:
-" jQuery: jquery
-" underscore.js: underscore
-" Lo-Dash: underscore
-" Backbone.js: backbone
-" prelude.ls: prelude
-" AngularJS: angularjs
-" AngularUI: angularui
-" AngularUI Router: angularuirouter
-" React: react
-" Flux: flux
-" RequireJS: requirejs
-" Sugar.js: sugar
-" Jasmine: jasmine
-" Chai: chai
-" Handlebars: handlebars
-" Ramda: ramda
-let g:used_javascript_libs = 'angularjs,angularui,angularuirouter,jasmine,chai'
-
-" configuration of the vim-angular plugin
-let g:angular_source_directory = 'src/app'
-let g:angular_test_directory = 'tests'
-let g:angular_find_ignore = ['build/', 'dist/']
-let g:angular_filename_convention = 'camelcased' " alternative is 'titlecased'
-let g:angular_jasmine_version =2 
-
-" configure arduino sdk location
+" -------------------------------------
+" -- configure  arduino syntax plugin
+" ------------------------------------
 let g:hardy_arduino_path='/home/pedda/local/arduino/arduino'
 let g:hardy_arduino_options='--board arduino:avr:micro --port /dev/ttyACM3'
 
-" configure tern for vim plugin
-let g:tern_map_keys=1
-let g:tern_show_argument_hints='on_hold'
 
-" configure gutentags plugin
-"let g:gutentags_tagfile='.gtags'
-
-" configure indent plugi
+" -------------------------------------
+" -- configure  indent plugin
+" ------------------------------------
 let g:indentLine_char = '┆'
 let g:indentLine_color_term = 239
 
-" configure light line / powerline
+" -------------------------------------
+" -- configure auto rooter 
+" ------------------------------------
+let g:rooter_silent_chdir = 1
+
+" -------------------------------------
+" -- configure Fugitive plugin 
+" ------------------------------------
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" -------------------------------------
+" -- configure  light line / powerline
+" ------------------------------------
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'active': {
@@ -508,6 +482,3 @@ let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
-
-" fugitive, deletes buffer when hidden.
-autocmd BufReadPost fugitive://* set bufhidden=delete
