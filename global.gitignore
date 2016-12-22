@@ -3,6 +3,8 @@
 .tags
 tags
 *.swp
+*.swo
+*.swn
 *.gtags
 rebel.xml
 rebel-remote.xml
