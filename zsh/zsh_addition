@@ -27,9 +27,16 @@ alias swg='google' # search the web with google for the given search string, ope
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'
+# Operations with pacman 
+alias pacs='pacman -Ss'
+alias paci='pacman -S'
 
 alias rvi='vim --servername VIM --remote ' # opens the given file in the remote running vim server, if no server is up, one will be stated.
 alias svi='vim --servername VIM'  # opens vim in sever mode with the default server name VIM
+alias vi=vim
+
+alias dc=docker-compose
+
 #uses the system and x-window clipboard to create a diff view between the content of the two clipboards
 alias clipdiff='vimdiff <(xclip -o) <(xclip -o -selection clipbord)'
 
@@ -53,20 +60,23 @@ ARDUINO_SDK_PATH=~/local/arduino
 AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
 GRAILS_HOME=~/hack/grails
 #JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-JAVA_HOME=/opt/Oracle_Java/jdk
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 GWT_HOME=~/hack/gwt
-MAVEN_HOME=/usr/share/maven
-M2_HOME=/usr/share/maven
+MAVEN_HOME=/opt/maven
+M2_HOME=/opt/maven
 ANDROID_SDK_HOME=~/local/android-sdk
 ANDROID_SDK=~/local/android-sdk
 GRADLE_HOME=~/local/gradle
 SCALA_HOME=~/local/scala
 MONGODB_HOME=~/local/mongodb
 TOMCAT_HOME=~/local/tomcat
+EDITOR=/usr/bin/vim
 
 PATH="$PATH:$GRAILS_HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$TOMCAT_HOME/bin"
 
-export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK
+export GRAILS_HOME PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR GRADLE_HOME TERM ANDROID_SDK EDITOR
+
+#export LD_LIBRARY_PATH=/usr/lib32/nvidia:/usr/lib/nvidia:$LD_LIBRARY_PATH 
 
 # see https://youtrack.jetbrains.com/issue/IDEA-78860 for more info
 export IBUS_ENABLE_SYNC_MODE=1
@@ -88,4 +98,10 @@ _yo_completion () {
   IFS="$si"
 }
 compctl -K _yo_completion yo
-#                                                                                                      ###-end-yo-completion-###
+###-end-yo-completion-###
+##
+
+# merge the gnome gtk clipboard with the x11 clipboard.
+#autocutsel &
+#autocutsel -s PRIMARY & 
+

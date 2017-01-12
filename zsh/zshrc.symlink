@@ -76,6 +76,6 @@ if [ -f ~/.dotfiles/zsh/zsh_addition ]; then
     . ~/.dotfiles/zsh/zsh_addition
 fi
 
-if [ -f /usr/share/autojump/autojump.sh ]; then 
-  source /usr/share/autojump/autojump.sh
+if [ -f /etc/profile.d/autojump.zsh ]; then 
+  source /etc/profile.d/autojump.zsh
 fi

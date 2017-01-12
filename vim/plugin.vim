@@ -117,7 +117,7 @@ let g:syntastic_html_validator_parser='html5'
 " -- configuration of the ulti snippet
 " ------------------------------------
 noremap <C-tab> <nop>
-let g:UltiSnipsUsePythonVersion = 3
+"let g:UltiSnipsUsePythonVersion = 3
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " better key bindings for UltiSnipsExpandTrigger
 " http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme

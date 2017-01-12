@@ -2,6 +2,7 @@ syntax on
 filetype plugin indent on
 set re=1            " use new regexp engine
 
+
 set incsearch
 set ignorecase
 set smartcase
@@ -23,7 +24,7 @@ set scrolloff=10
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-set clipboard=unnamed,unnamedplus " makes unnamed reg sames "*, 
+set clipboard=unnamedplus " makes unnamed reg sames "*, 
 
 " if expandtab is on, tabs will be replaced by the number of tabstop spaces
 " if tabs shoulb be used, set noexpandtab is your friend.
