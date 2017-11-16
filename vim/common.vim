@@ -2,7 +2,6 @@ syntax on
 filetype plugin indent on
 set re=1            " use new regexp engine
 
-
 set incsearch
 set ignorecase
 set smartcase
