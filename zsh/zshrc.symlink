@@ -49,7 +49,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gradle history mvn web-search docker)
+plugins=(git gradle history mvn web-search docker kubectl spring)
 
 # User configuration
 
@@ -77,8 +77,8 @@ if [ -f ~/.dotfiles/zsh/zsh_addition ]; then
     . ~/.dotfiles/zsh/zsh_addition
 fi
 
-if [ -f /etc/profile.d/autojump.zsh ]; then 
-  source /etc/profile.d/autojump.zsh
+if [ -f /usr/share/autojump/autojump.zsh ]; then 
+  source /usr/share/autojump/autojump.zsh
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -91,6 +91,26 @@ if [ -f /home/pedda/local/google-cloud-sdk/completion.zsh.inc ]; then
   source '/home/pedda/local/google-cloud-sdk/completion.zsh.inc'
 fi
 
+if [ -f /home/pedda/.dotfiles/zsh/helm_completion.source ]; then
+  source '/home/pedda/.dotfiles/zsh/helm_completion.source'
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/pedda/.sdkman"
 [[ -s "/home/pedda/.sdkman/bin/sdkman-init.sh" ]] && source "/home/pedda/.sdkman/bin/sdkman-init.sh"
+
+
+#if [ -f ~/.sdkman/candidates/springboot/current/shell-completion/zsh/_spring ]; then
+  #source '/home/pedda/.sdkman/candidates/springboot/current/shell-completion/zsh/_spring'
+#fi
+
+source /home/pedda/.rvm/scripts/rvm
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/pedda/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/pedda/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/pedda/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pedda/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

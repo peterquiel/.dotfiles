@@ -29,30 +29,21 @@ alias swg='google' # search the web with google for the given search string, ope
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'
-# Operations with pacman 
-alias pacs='pacman -Ss'
-alias paci='pacman -S'
 
-alias rvi='vim --servername VIM --remote ' # opens the given file in the remote running vim server, if no server is up, one will be stated.
-alias svi='vim --servername VIM'  # opens vim in sever mode with the default server name VIM
 alias vi='gvim -v'
 alias vim='gvim -v'
 
 alias dc=docker-compose
-alias dcreupstorage="cd ~/projects/wescale/wescale-docker-compose && dc -f wescale-storage.yml down && dc -f wescale-storage.yml up -d"
-alias dcstartstorage="cd ~/projects/wescale/wescale-docker-compose && dc -f wescale-storage.yml start"
-alias dcstopstorage="cd ~/projects/wescale/wescale-docker-compose && dc -f wescale-storage.yml stop"
-
 
 alias gs='git status'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias gpu='git push'
+alias gpl='git pull'
+alias gpuu='git push -u origin `git rev-parse --abbrev-ref HEAD`'
 
 #uses the system and x-window clipboard to create a diff view between the content of the two clipboards
 alias clipdiff='vimdiff <(xclip -o) <(xclip -o -selection clipbord)'
-
-alias scan-duplex-low='hp-scan --duplex -spdf -mgray -r150 --adf -f '
-alias scan-duplex-high='hp-scan --duplex -spdf -mcolor -r300 --adf -f '
 
 alias kc='kubectl' 
 
@@ -71,21 +62,21 @@ CXX=/usr/bin/g++
 CC=/usr/bin/gcc
 ARDUINO_SDK_PATH=~/local/arduino
 AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
-JAVA_HOME=/usr/java/latest
-#JAVA_HOME=/etc/alternatives/java_sdk
 GWT_HOME=~/hack/gwt
-MAVEN_HOME=~/local/maven
-M2_HOME=~/local/maven
 ANDROID_SDK_HOME=~/local/android-sdk
 ANDROID_SDK=~/local/android-sdk
 MONGODB_HOME=~/local/mongodb
 TOMCAT_HOME=~/local/tomcat
 EDITOR=/usr/bin/vim
+KUBECONFIG="${KUBECONFIG:-$HOME/.kube/config}"
+GOPATH=~/hack/go
+GOBIN=~/hack/go/bin
+MICRONAUT_HOME=~/hack/micronaut-core
 
-PATH="$PATH:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:~/.dotfiles/bin::$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$M2_HOME/bin"
+PATH="$PATH:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:~/.dotfiles/bin::$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$GOPATH/bin:$MICRONAUT_HOME/cli/build/bin"
 #PATH="$PATH$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$TOMCAT_HOME/bin:$M2_HOME/bin:$NODE_HOME/bin"
 
-export PATH JAVA_HOME MAVEN_HOME M2_HOME ANDROID_SDK_HOME CC CXX ARDUINO_SDK_PATH AVR TERM ANDROID_SDK EDITOR 
+export PATH CC CXX ARDUINO_SDK_PATH AVR TERM ANDROID_SDK EDITOR KUBECONFIG GOPATH GOBIN MICRONAUT_HOME
 
 #export LD_LIBRARY_PATH=/usr/lib32/nvidia:/usr/lib/nvidia:$LD_LIBRARY_PATH 
 
@@ -112,7 +103,10 @@ compctl -K _yo_completion yo
 ###-end-yo-completion-###
 ##
 
+function currentKubeContext {
+    echo `kubectl config current-context`;
+}
+RPROMPT='$(currentKubeContext)'
 # merge the gnome gtk clipboard with the x11 clipboard.
 #autocutsel &
 #autocutsel -s PRIMARY & 
-
