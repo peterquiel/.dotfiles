@@ -1,0 +1,14 @@
+# Restic backup ignore/exclude list.
+# 
+# Restic is an awesome backup programm - visit https://restic.net/
+**/*.swp
+**/*~
+.cache
+.ccache
+.config/google-chrome
+.config/Slack/Cache
+.m2
+.gradle
+.grails
+.local/share/zeitgeist/
+.pcloud/Cache/
