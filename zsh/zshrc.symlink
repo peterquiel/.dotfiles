@@ -58,6 +58,7 @@ plugins=(git
     spring 
     web-search 
     zsh-syntax-highlighting
+    zsh-autosuggestions
  ) 
 
 # User configuration
