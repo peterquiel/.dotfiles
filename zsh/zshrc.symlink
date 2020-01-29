@@ -49,9 +49,21 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gradle history mvn web-search docker kubectl spring)
+plugins=(git 
+    docker     gradle 
+    history-substring-search 
+    history 
+    mvn 
+    kubectl 
+    spring 
+    web-search 
+    zsh-syntax-highlighting
+ ) 
 
 # User configuration
+
+bindkey "$key[Up]"   history-substring-search-up
+bindkey "$key[Down]" history-substring-search-down
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"

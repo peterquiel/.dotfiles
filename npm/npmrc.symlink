@@ -1,3 +1,5 @@
 prefix=/home/pedda/.npm-global
 progress=false
 registry=https://registry.npmjs.org/
+
+@wescale:registry=https://nexus.wescale.io/repository/npm-public

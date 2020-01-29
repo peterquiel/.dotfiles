@@ -58,27 +58,15 @@ vm() { vim -c 'setf man' <(man $1); }
 # vm has the same auto completion as man
 compdef vm=man
 
-CXX=/usr/bin/g++
-CC=/usr/bin/gcc
-ARDUINO_SDK_PATH=~/local/arduino
-AVR="$ARDUINO_SDK_PATH/hardware/tools/avr"
-GWT_HOME=~/hack/gwt
-ANDROID_SDK_HOME=~/local/android-sdk
-ANDROID_SDK=~/local/android-sdk
-MONGODB_HOME=~/local/mongodb
-TOMCAT_HOME=~/local/tomcat
 EDITOR=/usr/bin/vim
 KUBECONFIG="${KUBECONFIG:-$HOME/.kube/config}"
 GOPATH=~/hack/go
 GOBIN=~/hack/go/bin
-MICRONAUT_HOME=~/hack/micronaut-core
+JAVA_HOME=~/.sdkman/candidates/java/current
 
-PATH="$PATH:$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:~/.dotfiles/bin::$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$GOPATH/bin:$MICRONAUT_HOME/cli/build/bin"
-#PATH="$PATH$JAVA_HOME/bin:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$AVR/bin:$GRADLE_HOME/bin:~/.dotfiles/bin:$SCALA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$MONGODB_HOME/bin:$TOMCAT_HOME/bin:$M2_HOME/bin:$NODE_HOME/bin"
+PATH="$PATH:$JAVA_HOME/bin:$HOME/.dotfiles/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/projects/wescale/bin:$GOPATH/bin"
 
-export PATH CC CXX ARDUINO_SDK_PATH AVR TERM ANDROID_SDK EDITOR KUBECONFIG GOPATH GOBIN MICRONAUT_HOME
-
-#export LD_LIBRARY_PATH=/usr/lib32/nvidia:/usr/lib/nvidia:$LD_LIBRARY_PATH 
+export PATH TERM EDITOR KUBECONFIG GOPATH GOBIN JAVA_HOME
 
 # see https://youtrack.jetbrains.com/issue/IDEA-78860 for more info
 export IBUS_ENABLE_SYNC_MODE=1
@@ -106,7 +94,9 @@ compctl -K _yo_completion yo
 function currentKubeContext {
     echo `kubectl config current-context`;
 }
-RPROMPT='$(currentKubeContext)'
+# RPROMPT='$(currentKubeContext)'
+
+
 # merge the gnome gtk clipboard with the x11 clipboard.
 #autocutsel &
 #autocutsel -s PRIMARY & 
