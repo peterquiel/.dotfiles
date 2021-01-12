@@ -81,10 +81,11 @@ set-option -g mouse on
 setw -g mode-keys vi
 
 # more settings to make copy-mode more vim-like
+#
 # set vi mode for copy mode
-unbind [
 bind Escape copy-mode
 unbind p
+bind p paste-buffer
 bind p paste-buffer
 #bind -t vi-copy 'v' begin-selection
 #bind -t vi-copy 'y' copy-selection

@@ -13,7 +13,6 @@ stty -ixon
 
 alias python=python3
 
-alias mvnist='mvn install -DskipTests'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -27,7 +26,7 @@ alias fp='ps aux | grep ' # find a process
 alias swd='ddg' # search the web with duck duck go for the search given search string, opens the result in the default browser
 alias swg='google' # search the web with google for the given search string, opens the result in the default browser.
 
-alias acs='apt-cache search'
+alias acs='apt search'
 alias agi='sudo apt-get install'
 
 alias vi='gvim -v'
@@ -42,6 +41,8 @@ alias gpu='git push'
 alias gpl='git pull'
 alias gpuu='git push -u origin `git rev-parse --abbrev-ref HEAD`'
 
+alias op='gio open'
+alias dirsync='rsync -avh --info=progress2 --delete '
 #uses the system and x-window clipboard to create a diff view between the content of the two clipboards
 alias clipdiff='vimdiff <(xclip -o) <(xclip -o -selection clipbord)'
 
@@ -49,8 +50,6 @@ alias kc='kubectl'
 
 alias -g ...='../..'
 alias -g ....='../../..'
-
-alias antlr='java -cp ~/hack/antlr.jar org.antlr.v4.Tool'
 
 #alias finjar='find "$1" -name "*.jar" -exec sh -c \'unzip -l {}|grep -H --label {} \'$2\'\' \;'
 # open man pages using vim with the vman command and setting the filetype to manpages.

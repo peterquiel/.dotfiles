@@ -2,6 +2,7 @@
 # 
 # Restic is an awesome backup programm - visit https://restic.net/
 **/*.swp
+**/*.swp
 **/*~
 .cache
 .ccache
@@ -11,4 +12,7 @@
 .gradle
 .grails
 .local/share/zeitgeist/
-.pcloud/Cache/
+.pcloud
+Pictures
+Video
+.MPSSample*
